@@ -1,0 +1,7 @@
+EId,StudentId,SectionId,Grade,SId,SName,GradYear,MajorId
+14,1,13,A,1,joe,2004,10
+24,1,43,C,1,joe,2004,10
+34,2,43,B+,2,amy,2004,20
+44,4,33,B,4,sue,2005,20
+54,4,53,A,4,sue,2005,20
+64,6,53,A,6,kim,2001,20
