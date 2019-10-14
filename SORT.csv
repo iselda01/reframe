@@ -1,4 +1,4 @@
-SId,SName,GradYear,MajorId
+StudentId,SName,GradYear,MajorId
 2,amy,2004,20
 7,art,2004,30
 5,bob,2003,30

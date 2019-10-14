@@ -160,21 +160,26 @@ class Relation(pd.DataFrame):
 
         
         if cols == "":
-            for selfcol in self.columns():
-                if selfcol in other.columns():
+            for selfcol in self.columns:
+                if selfcol in other.columns:
                     return Relation(pd.merge(self, other, on=selfcol))
             raise ValueError("Relations mush have a shared column")
 
         else:
-            cols = cols.split('=')
+            colsplit = cols.split('=')
+            print(colsplit)
+            col1 = colsplit[0].strip()
+            col2 = colsplit[1].strip()
+            print(other.columns)
 
-            if cols[0].strip() in self.columns():
-                if cols[1].strip() in other.columns():
-                    return Relation(pd.merge(self, other, left_on=cols[0].strip(), right_on=cols[1].strip()))
+
+            if col1 in self.columns:
+                if col2 in other.columns:
+                    return Relation(pd.merge(self, other, left_on=col1, right_on=col2))
                 else:
-                    raise ValueError("Column does not exist: " + cols[0].strip())
+                    raise ValueError("Column does not exist: " + col1)
             else:
-                raise ValueError("Column does not exist: " + cols[1].strip())
+                raise ValueError("Column does not exist: " + col2)
                 
     def njoin(self, other):
         """Create a new relation that is the intersection of the two given relations
