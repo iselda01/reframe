@@ -150,6 +150,32 @@ class Relation(pd.DataFrame):
         else:
             return Relation(pd.merge(self,other,how='inner',on=list(self.columns)))
 
+    def join(self, other, cols = ""):
+        """Return a new relation that is the joining of the two given relations so that
+        the records of one are added onto the other wherever the values of a specific column
+        in each relation are equal to each other.
+        
+        If no columns are specified, then each column of one relation will be checked to see if the name
+        matches the name of another column in the other relation, and will join on that column if possible."""
+
+        
+        if cols == "":
+            for selfcol in self.columns():
+                if selfcol in other.columns():
+                    return Relation(pd.merge(self, other, on=selfcol))
+            raise ValueError("Relations mush have a shared column")
+
+        else:
+            cols = cols.split('=')
+
+            if cols[0].strip() in self.columns():
+                if cols[1].strip() in other.columns():
+                    return Relation(pd.merge(self, other, left_on=cols[0].strip(), right_on=cols[1].strip()))
+                else:
+                    raise ValueError("Column does not exist: " + cols[0].strip())
+            else:
+                raise ValueError("Column does not exist: " + cols[1].strip())
+                
     def njoin(self, other):
         """Create a new relation that is the intersection of the two given relations
 
